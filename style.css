@@ -1,0 +1,120 @@
+@media screen and (max-width: 500px) {
+  /* p {
+        font-size: 14px;
+    } */
+}
+@font-face {
+  font-family: "rubik";
+  src: url("media/Rubik(1)/Rubik/Rubik-Regular.ttf");
+}
+@font-face {
+  font-family: "rubik-medium";
+  src: url("media/Rubik(1)/Rubik/Rubik-Medium.ttf");
+}
+@font-face {
+  font-family: "rubik-light";
+  src: url("media/Rubik(1)/Rubik/Rubik-Light.ttf");
+}
+@font-face {
+  font-family: "rubik-bold";
+  src: url("media/Rubik(1)/Rubik/Rubik-Bold.ttf");
+}
+
+body {
+  font-family: "rubik";
+  background-image: url("media/בואו נתחיל !.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  direction: rtl;
+}
+
+.button-start {
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  position: absolute;
+  top: 65%;
+  right: 16%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  padding: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.bulb {
+  visibility: hidden;
+  width: 25vw; /* את יכולה לשנות את הגודל */
+  height: 25vh; /* אם את רוצה שהן יהיו ריבוע */
+  object-fit: contain;
+  position: absolute; /* כדי שתוכלי למקם כל אחת */
+}
+
+#img1 {
+  top: 41.5%;
+  left: 76%;
+}
+
+#img2 {
+  top: 49.4%;
+  left: 50%;
+}
+
+#img3 {
+  top: 43.3%;
+  left: 25%;
+}
+
+#img4 {
+  top: 45.8%;
+  left: 1%;
+}
+
+#img1.on {
+  left: 73%;
+  top: 43%;
+}
+#img2.on {
+  left: 47%;
+  top: 50%;
+}
+#img3.on {
+  left: 24%;
+  top: 45%;
+}
+#img4.on {
+  left: 0%;
+  top: 46.7%;
+}
+
+.bulb.on {
+  width: 30vw; /* מוגדל */
+  height: 30vh;
+}
+
+.bulb-text {
+  color: #000000;
+  opacity: 0.41;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  font-size: x-small;
+}
+
+#text1 {
+  top: 65%;
+  left: 80.5%;
+}
+#text2 {
+  top: 73%;
+  left: 58%;
+}
+#text3 {
+  top: 67%;
+  left: 25%;
+}
+#text4 {
+  top: 70%;
+  left: 10%;
+}
