@@ -5,19 +5,19 @@
 }
 @font-face {
   font-family: "rubik";
-  src: url("media/Rubik(1)/Rubik/Rubik-Regular.ttf");
+  src: url("media/Rubik/Rubik-Regular.ttf");
 }
 @font-face {
   font-family: "rubik-medium";
-  src: url("media/Rubik(1)/Rubik/Rubik-Medium.ttf");
+  src: url("media/Rubik/Rubik-Medium.ttf");
 }
 @font-face {
   font-family: "rubik-light";
-  src: url("media/Rubik(1)/Rubik/Rubik-Light.ttf");
+  src: url("media/Rubik/Rubik-Light.ttf");
 }
 @font-face {
   font-family: "rubik-bold";
-  src: url("media/Rubik(1)/Rubik/Rubik-Bold.ttf");
+  src: url("media/Rubik/Rubik-Bold.ttf");
 }
 
 body {
@@ -27,28 +27,40 @@ body {
   background-repeat: no-repeat;
   direction: rtl;
 }
+
 .button-start {
   background-color: orange;
   color: white;
   border: none;
   border-radius: 10px;
-  position: absolute;
-  top: 65%;
-  right: 16%;
-  transform: translate(-50%, -50%);
+  /* ביטלנו absolute כדי שיהיה רספונסיבי */
+  position: relative;
   font-weight: bold;
   padding: 2%;
   padding-left: 5%;
   padding-right: 5%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  top: 50vh;
 
   /* אופציונלי – אפקט חיבור קל בלחיצה */
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .button-start:active {
-  transform: translate(-50%, -50%) scale(0.98);
+  transform: scale(0.98);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* שינוי קטן עבור מסכים קטנים */
+@media screen and (max-width: 500px) {
+  .button-start {
+    position: relative; /* ביטול absolute */
+    display: block; /* כדי שיוכל להיות margin auto */
+    margin: 5vh auto 0 auto; /* מרכז אופקי וגבוה יחסית */
+    padding: 4%; /* התאמת גודל הכפתור */
+    font-size: 14px; /* פונטים קטנים יותר */
+    transform: none; /* ביטול translate */
+  }
 }
 
 .bulb {
@@ -129,9 +141,10 @@ body {
 
 .textTitle {
   text-align: center;
+  transform: translate(-50%, -50%);
   position: absolute;
   top: 10%;
-  right: 22vw;
+  right: 12vw;
   color: #fdf4d4;
 }
 
@@ -141,8 +154,9 @@ body {
   color: #fdf4d4;
   position: relative;
   top: 48vh;
-  right: 5%;
+  right: ;
   font-weight: bold;
+  font-size: larger;
 }
 
 .balon {
@@ -173,10 +187,23 @@ body {
   font-family: "rubik", sans-serif;
   position: absolute;
   bottom: 20%;
-  right: 32%;
+  right: 36vw;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 3;
 }
 
+/* .click-on-me {
+  color: #7f613e;
+  font-weight: bold;
+} */
+
+.light-Balon {
+  width: 70vw;
+  height: 60vh;
+  position: absolute;
+  right: 12%;
+  bottom: 16%;
+}
 .btn-style {
   color: #7f613e;
   border: 2px solid #7f613e;
@@ -189,6 +216,7 @@ body {
   top: 65vh;
   right: 30%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 3;
 }
 
 .title-part-style {
@@ -207,4 +235,63 @@ body {
   position: absolute;
   top: 20vh;
   right: 0%;
+}
+
+.motHarama {
+  position: absolute;
+  width: 55%;
+  height: auto;
+  left: 5%;
+  top: 40%;
+}
+
+.arrowPart1 {
+  position: absolute;
+  left: 60%;
+  top: 50%;
+  width: 40%;
+  height: auto;
+}
+
+.arrowPart2 {
+  position: absolute;
+  left: 55%;
+  top: 59%;
+  width: 40%;
+  height: auto;
+}
+.arrowPart3 {
+  position: absolute;
+  left: 42%;
+  top: 32%;
+  width: 40%;
+  height: auto;
+}
+
+.arrowPart4 {
+  position: absolute;
+  left: 42%;
+  top: 68%;
+}
+
+.Title {
+  text-align: center;
+  text-shadow: 1px 2px 0px #ef6f00;
+  color: black;
+  /* font-size: smaller; */
+  font-weight: bold;
+  /* left: 10%; */
+}
+
+.text-prep {
+  text-align: center;
+}
+
+.wire {
+  position: absolute;
+  top: 77vw;
+  left: 50%;
+  transform: translateX(-50%);
+  width:100vw;
+  z-index: 10;
 }
