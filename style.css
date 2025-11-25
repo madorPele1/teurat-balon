@@ -22,7 +22,7 @@
 
 body {
   font-family: "rubik";
-  background-image: url("media/בואו נתחיל !.svg");
+  background-image: url("media/startScreen.svg");
   background-size: cover;
   background-repeat: no-repeat;
   direction: rtl;
@@ -41,6 +41,7 @@ body {
   padding-right: 5%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   top: 50vh;
+  z-index: 4;
 
   /* אופציונלי – אפקט חיבור קל בלחיצה */
   transition: transform 0.1s, box-shadow 0.1s;
@@ -72,7 +73,7 @@ body {
 }
 
 #img1 {
-  top: 38.5%;
+  top: 40%;
   left: 76%;
 }
 
@@ -82,12 +83,12 @@ body {
 }
 
 #img3 {
-  top: 40.3%;
+  top: 41.5%;
   left: 25%;
 }
 
 #img4 {
-  top: 42.8%;
+  top: 43.7%;
   left: 1%;
 }
 
@@ -124,19 +125,19 @@ body {
 
 #text1 {
   top: 65%;
-  left: 80.5%;
+  left: 84%;
 }
 #text2 {
-  top: 73%;
-  left: 58%;
+  top: 71.5%;
+  left: 60%;
 }
 #text3 {
   top: 67%;
-  left: 25%;
+  left: 30.5%;
 }
 #text4 {
-  top: 70%;
-  left: 10%;
+  top: 69%;
+  left: 9%;
 }
 
 .textTitle {
@@ -144,7 +145,7 @@ body {
   transform: translate(-50%, -50%);
   position: absolute;
   top: 10%;
-  right: 12vw;
+  right: 15vw;
   color: #fdf4d4;
 }
 
@@ -214,9 +215,9 @@ body {
   font-family: "rubik", sans-serif;
   position: relative;
   top: 65vh;
-  right: 30%;
+  right: 35%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 3;
+  z-index: 12;
 }
 
 .title-part-style {
@@ -224,7 +225,7 @@ body {
   text-shadow: 1px 2px 0px #999;
   position: absolute;
   top: 10vh;
-  right: 28%;
+  right: 36%;
 }
 
 .text-part {
@@ -287,11 +288,65 @@ body {
   text-align: center;
 }
 
-.wire {
-  position: absolute;
-  top: 77vw;
-  left: 50%;
-  transform: translateX(-50%);
-  width:100vw;
+#wire {
+  top: 37%;
+  left: 0.1%;
+  /* width: 1vw; */
   z-index: 10;
+  visibility: hidden;
 }
+
+.bulb1 {
+  visibility: hidden;
+  width: 100vw; /* את יכולה לשנות את הגודל */
+  height: auto; /* אם את רוצה שהן יהיו ריבוע */
+  object-fit: contain;
+  position: absolute; /* כדי שתוכלי למקם כל אחת */
+}
+
+.baloon {
+  position: absolute;
+  top: 5vh;
+  left: 25vw;
+  width: 140%;
+}
+
+.titleText {
+  z-index: 2;
+  position: absolute;
+  color: #ef6f00;
+}
+
+.lomdat {
+  position: absolute;
+  top: 26vh;
+  right: 25vw;
+  font-size: 40px;
+}
+
+.teurat {
+  font-family: "rubik-bold";
+  position: absolute;
+  top: 29vh;
+  right: 25vw;
+  font-size: 41px;
+  font-weight: bolder;
+  word-wrap: break-word;
+  width: 58vw;
+  z-index: 2;
+}
+
+.shadow {
+  font-family: "rubik-bold";
+  color: #000000;
+  opacity: 0.2;
+  position: absolute;
+  top: 29.4vh;
+  right: 25.4vw;
+  font-size: 41px;
+  font-weight: bolder;
+  word-wrap: break-word;
+  width: 58vw;
+}
+
+

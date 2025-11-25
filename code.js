@@ -10,18 +10,12 @@ let motHarama;
 let arrow;
 let wire;
 
-// function addWire() {
-//   if (!document.querySelector(".wire")) {
-//     // לבדוק אם כבר קיים
-//     const wire = document.createElement("img");
-//     wire.src = "media/wire.png";
-//     wire.classList.add("wire");
-//     document.body.appendChild(wire);
-//   }
-// }
-
 window.addEventListener("load", () => {
   document.getElementById("startButton").addEventListener("click", function () {
+    // העלמת תמונת בלון התאורה
+    document.getElementById("baloon").style.display = "none";
+    document.getElementById("titleText").style.display = "none";
+
     // החלפת רקע
     document.body.style.backgroundImage = "url('media/backgroundRegular.svg')";
 
@@ -32,12 +26,103 @@ window.addEventListener("load", () => {
     navbar(level);
   });
 });
+
+// function navbar(level) {
+//   const bulbs = document.getElementsByClassName("bulb");
+//   const container = document.getElementById("text-container");
+
+//   // -------------------------------
+//   // הצגת כל הנורות + איפוס קלאס "on"
+//   for (let bulb of bulbs) {
+//     bulb.style.visibility = "visible";
+//     bulb.classList.remove("on");
+//   }
+
+//   // עדכון מצב נורות דולקות/כבויות לפי level
+//   for (let i = 1; i <= 4; i++) {
+//     const img = document.getElementById(`img${i}`);
+//     img.src = i <= level ? "media/bulbOn.svg" : "media/bulbOff.svg";
+//     if (i <= level) img.classList.add("on");
+//   }
+
+//   // -------------------------------
+//   // הוספת ארבעת הטקסטים
+//   const texts = [
+//     "יעוד<br>והכרת הכלי",
+//     "הכנות  <br>והפעלה",
+//     "דגשים  <br>והוראות בטיחות",
+//     "תרגול <br>   מסכם",
+//   ];
+
+//   container.innerHTML = ""; // מנקה תוכן קודם
+//   texts.forEach((txt, i) => {
+//     const p = document.createElement("p");
+//     p.classList.add("bulb-text");
+//     p.id = `text${i + 1}`;
+//     p.innerHTML = txt;
+//     container.appendChild(p);
+//   });
+
+//   // -------------------------------
+//   // הוספת חוט (wire) דינמי לתוך הקונטיינר
+//   let wire = document.getElementById("wire");
+//   if (!wire) {
+//     wire = document.createElement("img");
+//     wire.id = "wire";
+//     wire.src = "media/wire.png";
+//     wire.classList.add("wire-js"); // מחלקת CSS אפשר לערוך
+//     wire.style.position = "absolute";
+//     wire.style.width = "100%";
+//     wire.style.zIndex = "20"; // מעל הנורות
+//     container.appendChild(wire);
+//   }
+
+//   // ממקמים את החוט מעל הנורה הגבוהה ביותר
+//   let maxTop = 0;
+//   for (let bulb of bulbs) {
+//     const rect = bulb.getBoundingClientRect();
+//     if (rect.top > maxTop) maxTop = rect.top;
+//   }
+//   const containerRect = container.getBoundingClientRect();
+//   wire.style.top = (maxTop - containerRect.top - 10) + "px"; // -10px למעט רווח מעל הנורה
+//   wire.style.visibility = "visible";
+
+//   // -------------------------------
+//   // מאזיני לחיצה עם סדר לפי clickStage
+//   const img1 = document.getElementById("img1");
+//   const img2 = document.getElementById("img2");
+
+//   // מחיקה של מאזינים קיימים כדי למנוע כפילויות
+//   img1.onclick = null;
+//   img2.onclick = null;
+
+//   img1.onclick = () => {
+//     if (clickStage === 0) {
+//       step1();
+//       document.body.style.backgroundImage = "url('media/backgroung2.png')";
+//       container.style.display = "none";
+//       hideBulbs();
+//       wire.style.visibility = "hidden";
+//       clickStage++;
+//     }
+//   };
+
+//   img2.onclick = () => {
+//     if (clickStage === 1) {
+//       step2New();
+//       container.style.display = "none";
+//       hideBulbs();
+//       wire.style.visibility = "hidden";
+//       document.body.style.backgroundImage = "url('media/backgroundRegular.svg')";
+//       clickStage++;
+//     }
+//   };
+// }
+
 function navbar(level) {
-  // addWire();
-  // -------------------------------
-  // הוספת החוט מיד מעל הנורות
-  // -------------------------------
   const bulbs = document.getElementsByClassName("bulb");
+
+  wire = document.getElementById("wire");
 
   // הצגת כל הנורות + איפוס קלאס "on"
   for (let bulb of bulbs) {
@@ -59,7 +144,7 @@ function navbar(level) {
     "יעוד<br>והכרת הכלי",
     "הכנות  <br>והפעלה",
     "דגשים  <br>והוראות בטיחות",
-    "תרגול <br>   מסכם",
+    "תרגול מסכם",
   ];
 
   container.innerHTML = "";
@@ -72,13 +157,13 @@ function navbar(level) {
   });
 
   // -------------------------------
+  // הוספת חוט (wire) לתוך הקונטיינר
+  document.getElementById("wire").style.visibility = "visible";
+
+  // -------------------------------
   // מאזיני לחיצה עם סדר לפי clickStage
   const img1 = document.getElementById("img1");
   const img2 = document.getElementById("img2");
-  const wire1 = document.getElementById("wire");
-  wire1.src = "media/wire.png";
-
-  wire1.style.visibility = "visible";
 
   // מחיקה של מאזינים קיימים כדי למנוע כפילויות
   img1.onclick = null;
@@ -92,13 +177,13 @@ function navbar(level) {
       hideBulbs();
       clickStage++;
     }
-    wire1.style.visibility = "hidden";
+    wire.style.visibility = "hidden";
   };
 
   img2.onclick = () => {
     if (clickStage === 1) {
       step2New();
-      wire1.style.visibility = "hidden";
+      wire.style.visibility = "hidden";
 
       document.body.style.backgroundImage =
         "url('media/backgroundRegular.svg')";
@@ -108,6 +193,79 @@ function navbar(level) {
     }
   };
 }
+
+// function navbar(level) {
+//   const bulbs = document.getElementsByClassName("bulb");
+
+//   // הצגת כל הנורות + איפוס קלאס "on"
+//   for (let bulb of bulbs) {
+//     bulb.style.visibility = "visible";
+//     bulb.classList.remove("on");
+//   }
+
+//   // עדכון מצב נורות דולקות/כבויות
+//   for (let i = 1; i <= 4; i++) {
+//     const img = document.getElementById(`img${i}`);
+//     img.src = i <= level ? "media/bulbOn.svg" : "media/bulbOff.svg";
+//     if (i <= level) img.classList.add("on");
+//   }
+
+//   // -------------------------------
+//   // הוספת ארבעת הטקסטים
+//   const container = document.getElementById("text-container");
+//   const texts = [
+//     "יעוד<br>והכרת הכלי",
+//     "הכנות  <br>והפעלה",
+//     "דגשים  <br>והוראות בטיחות",
+//     "תרגול <br>   מסכם",
+//   ];
+
+//   container.innerHTML = "";
+//   texts.forEach((txt, i) => {
+//     const p = document.createElement("p");
+//     p.classList.add("bulb-text");
+//     p.id = `text${i + 1}`;
+//     p.innerHTML = txt;
+//     container.appendChild(p);
+//   });
+
+//   // -------------------------------
+//   // מאזיני לחיצה עם סדר לפי clickStage
+//   const img1 = document.getElementById("img1");
+//   const img2 = document.getElementById("img2");
+//   const wire1 = document.getElementById("wire");
+//   wire1.src = "media/wire.png";
+
+//   wire1.style.visibility = "visible";
+
+//   // מחיקה של מאזינים קיימים כדי למנוע כפילויות
+//   img1.onclick = null;
+//   img2.onclick = null;
+
+//   img1.onclick = () => {
+//     if (clickStage === 0) {
+//       step1();
+//       document.body.style.backgroundImage = "url('media/backgroung2.png')";
+//       container.style.display = "none";
+//       hideBulbs();
+//       clickStage++;
+//     }
+//     wire1.style.visibility = "hidden";
+//   };
+
+//   img2.onclick = () => {
+//     if (clickStage === 1) {
+//       step2New();
+//       wire1.style.visibility = "hidden";
+
+//       document.body.style.backgroundImage =
+//         "url('media/backgroundRegular.svg')";
+//       container.style.display = "none";
+//       hideBulbs();
+//       clickStage++;
+//     }
+//   };
+// }
 
 function hideBulbs() {
   const elements = document.getElementsByClassName("bulb");
@@ -201,7 +359,7 @@ function step1() {
 //   document.body.appendChild(title);
 
 function step2() {
-  // נוודא שהמשתנה מוגדר תמיד
+  // נוודא שהמשתנה מוגדר תמידelement.style
   titleParts = document.querySelector(".title-part-style");
 
   if (!titleParts) {
@@ -285,7 +443,7 @@ function parts() {
 
     if (clickStage1 === 0) {
       titleParts.textContent = "חצובה";
-      titleParts.style.right = "38%";
+      titleParts.style.right = "42%";
       textPart.textContent =
         "החצובה מורכבת משלושה רגליי ייצוב עם פרפריות לצורך חיזוק ואיזון החצובה";
       arrow.classList.remove("arrowPart1");
@@ -293,7 +451,7 @@ function parts() {
       clickStage1++;
     } else if (clickStage1 === 1) {
       titleParts.textContent = "גוף התאורה";
-      titleParts.style.right = "30%";
+      titleParts.style.right = "33%";
       textPart.textContent =
         "גוף התאורה הוא נורת לד המוקפת במעטפת עגולה בצורת בלון";
       arrow.classList.remove("arrowPart2");
@@ -301,8 +459,9 @@ function parts() {
       clickStage1++;
     } else if (clickStage1 === 2) {
       titleParts.textContent = "משקולת";
-      titleParts.style.right = "35%";
+      titleParts.style.right = "37%";
       textPart.textContent = "המשקולות מאזנות את החצובה, ישנן 3 משקולות";
+      textPart.style.right = "10vw";
       arrow.classList.remove("arrowPart3");
       arrow.classList.add("arrowPart4");
       clickStage1++;
