@@ -9,6 +9,8 @@ let clickStage1 = 0; // משתנה גלובלי לניהול הסדר
 let motHarama;
 let arrow;
 let wire;
+let nextBtnPart2b;
+let backBtnPart2b;
 
 window.addEventListener("load", () => {
   document.getElementById("startButton").addEventListener("click", function () {
@@ -27,97 +29,13 @@ window.addEventListener("load", () => {
   });
 });
 
-// function navbar(level) {
-//   const bulbs = document.getElementsByClassName("bulb");
-//   const container = document.getElementById("text-container");
 
-//   // -------------------------------
-//   // הצגת כל הנורות + איפוס קלאס "on"
-//   for (let bulb of bulbs) {
-//     bulb.style.visibility = "visible";
-//     bulb.classList.remove("on");
-//   }
-
-//   // עדכון מצב נורות דולקות/כבויות לפי level
-//   for (let i = 1; i <= 4; i++) {
-//     const img = document.getElementById(`img${i}`);
-//     img.src = i <= level ? "media/bulbOn.svg" : "media/bulbOff.svg";
-//     if (i <= level) img.classList.add("on");
-//   }
-
-//   // -------------------------------
-//   // הוספת ארבעת הטקסטים
-//   const texts = [
-//     "יעוד<br>והכרת הכלי",
-//     "הכנות  <br>והפעלה",
-//     "דגשים  <br>והוראות בטיחות",
-//     "תרגול <br>   מסכם",
-//   ];
-
-//   container.innerHTML = ""; // מנקה תוכן קודם
-//   texts.forEach((txt, i) => {
-//     const p = document.createElement("p");
-//     p.classList.add("bulb-text");
-//     p.id = `text${i + 1}`;
-//     p.innerHTML = txt;
-//     container.appendChild(p);
-//   });
-
-//   // -------------------------------
-//   // הוספת חוט (wire) דינמי לתוך הקונטיינר
-//   let wire = document.getElementById("wire");
-//   if (!wire) {
-//     wire = document.createElement("img");
-//     wire.id = "wire";
-//     wire.src = "media/wire.png";
-//     wire.classList.add("wire-js"); // מחלקת CSS אפשר לערוך
-//     wire.style.position = "absolute";
-//     wire.style.width = "100%";
-//     wire.style.zIndex = "20"; // מעל הנורות
-//     container.appendChild(wire);
-//   }
-
-//   // ממקמים את החוט מעל הנורה הגבוהה ביותר
-//   let maxTop = 0;
-//   for (let bulb of bulbs) {
-//     const rect = bulb.getBoundingClientRect();
-//     if (rect.top > maxTop) maxTop = rect.top;
-//   }
-//   const containerRect = container.getBoundingClientRect();
-//   wire.style.top = (maxTop - containerRect.top - 10) + "px"; // -10px למעט רווח מעל הנורה
-//   wire.style.visibility = "visible";
-
-//   // -------------------------------
-//   // מאזיני לחיצה עם סדר לפי clickStage
-//   const img1 = document.getElementById("img1");
-//   const img2 = document.getElementById("img2");
-
-//   // מחיקה של מאזינים קיימים כדי למנוע כפילויות
-//   img1.onclick = null;
-//   img2.onclick = null;
-
-//   img1.onclick = () => {
-//     if (clickStage === 0) {
-//       step1();
-//       document.body.style.backgroundImage = "url('media/backgroung2.png')";
-//       container.style.display = "none";
-//       hideBulbs();
-//       wire.style.visibility = "hidden";
-//       clickStage++;
-//     }
-//   };
-
-//   img2.onclick = () => {
-//     if (clickStage === 1) {
-//       step2New();
-//       container.style.display = "none";
-//       hideBulbs();
-//       wire.style.visibility = "hidden";
-//       document.body.style.backgroundImage = "url('media/backgroundRegular.svg')";
-//       clickStage++;
-//     }
-//   };
-// }
+// --- פונקציה לאיפוס מאזינים ---
+function resetButtonListeners(button) {
+  const newButton = button.cloneNode(true);
+  button.replaceWith(newButton);
+  return newButton;
+};
 
 function navbar(level) {
   const bulbs = document.getElementsByClassName("bulb");
@@ -182,7 +100,7 @@ function navbar(level) {
 
   img2.onclick = () => {
     if (clickStage === 1) {
-      step2New();
+      step2();
       wire.style.visibility = "hidden";
 
       document.body.style.backgroundImage =
@@ -193,79 +111,6 @@ function navbar(level) {
     }
   };
 }
-
-// function navbar(level) {
-//   const bulbs = document.getElementsByClassName("bulb");
-
-//   // הצגת כל הנורות + איפוס קלאס "on"
-//   for (let bulb of bulbs) {
-//     bulb.style.visibility = "visible";
-//     bulb.classList.remove("on");
-//   }
-
-//   // עדכון מצב נורות דולקות/כבויות
-//   for (let i = 1; i <= 4; i++) {
-//     const img = document.getElementById(`img${i}`);
-//     img.src = i <= level ? "media/bulbOn.svg" : "media/bulbOff.svg";
-//     if (i <= level) img.classList.add("on");
-//   }
-
-//   // -------------------------------
-//   // הוספת ארבעת הטקסטים
-//   const container = document.getElementById("text-container");
-//   const texts = [
-//     "יעוד<br>והכרת הכלי",
-//     "הכנות  <br>והפעלה",
-//     "דגשים  <br>והוראות בטיחות",
-//     "תרגול <br>   מסכם",
-//   ];
-
-//   container.innerHTML = "";
-//   texts.forEach((txt, i) => {
-//     const p = document.createElement("p");
-//     p.classList.add("bulb-text");
-//     p.id = `text${i + 1}`;
-//     p.innerHTML = txt;
-//     container.appendChild(p);
-//   });
-
-//   // -------------------------------
-//   // מאזיני לחיצה עם סדר לפי clickStage
-//   const img1 = document.getElementById("img1");
-//   const img2 = document.getElementById("img2");
-//   const wire1 = document.getElementById("wire");
-//   wire1.src = "media/wire.png";
-
-//   wire1.style.visibility = "visible";
-
-//   // מחיקה של מאזינים קיימים כדי למנוע כפילויות
-//   img1.onclick = null;
-//   img2.onclick = null;
-
-//   img1.onclick = () => {
-//     if (clickStage === 0) {
-//       step1();
-//       document.body.style.backgroundImage = "url('media/backgroung2.png')";
-//       container.style.display = "none";
-//       hideBulbs();
-//       clickStage++;
-//     }
-//     wire1.style.visibility = "hidden";
-//   };
-
-//   img2.onclick = () => {
-//     if (clickStage === 1) {
-//       step2New();
-//       wire1.style.visibility = "hidden";
-
-//       document.body.style.backgroundImage =
-//         "url('media/backgroundRegular.svg')";
-//       container.style.display = "none";
-//       hideBulbs();
-//       clickStage++;
-//     }
-//   };
-// }
 
 function hideBulbs() {
   const elements = document.getElementsByClassName("bulb");
@@ -345,7 +190,7 @@ function step1() {
     // for (let el of elements) {
     //   el.style.display = "block";
     // }
-    step2();
+    step1b();
     document.body.style.backgroundImage = "url('media/backgroundRegular.svg')";
 
     // level = level + 1;
@@ -358,7 +203,7 @@ function step1() {
 //   title.classList.add("textTitle");
 //   document.body.appendChild(title);
 
-function step2() {
+function step1b() {
   // נוודא שהמשתנה מוגדר תמידelement.style
   titleParts = document.querySelector(".title-part-style");
 
@@ -500,18 +345,129 @@ function parts() {
     }
   };
 }
-
-function step2New() {
+function step2() {
   const title = document.createElement("h2");
   title.classList.add("Title");
   title.textContent = "הכנות ובדיקות לפני הפעלה";
   document.body.appendChild(title);
 
-  const textPrep = document.createElement("p");
+  const textPrep = document.createElement("div");
   textPrep.classList.add("text-prep");
-  textPrep.textContent = "נוודא כי המעטפת יבשה לחלוטין לפני התקנת הכיסוי המגן";
   document.body.appendChild(textPrep);
+
+  btnNextPart = resetButtonListeners(btnNextPart);
   btnNextPart.style.visibility = "visible";
   btnNextPart.style.right = "40vw";
   btnNextPart.textContent = "המשך";
+
+  const lines = [
+    "- נוודא כי המעטפת יבשה לחלוטין לפני התקנת הכיסוי המגן",
+    "- נוודא כי יש פרפריות בערכה",
+    "- נבצע בדיקה ויזואלית",
+    "img", // הפריט האחרון הוא תמונה
+  ];
+
+  let clickIndex = 0;
+
+  btnNextPart.onclick = () => {
+    if (clickIndex < lines.length) {
+      let el;
+      if (lines[clickIndex] === "img") {
+        el = document.createElement("img");
+        el.src = "media/warning.svg";
+        el.classList.add("warn-image");
+      } else {
+        el = document.createElement("p");
+        el.textContent = lines[clickIndex];
+        el.style.marginBottom = "10vh"; // רווח בין הפסקאות
+      }
+      textPrep.appendChild(el);
+      clickIndex++;
+    } else {
+      step2b();
+    }
+  };
+
+  // הוספת השורה הראשונה מיד
+  btnNextPart.onclick();
+}
+
+function step2b() {
+  // בוחרת את כל האלמנטים של הטקסט הקיים
+  const allTextElements = document.querySelectorAll(
+    "h2, p, div.text-prep, img.warn-image"
+  );
+
+  allTextElements.forEach((el) => {
+    el.remove(); // מוחקת את האלמנט
+  });
+ if (btnNextPart) btnNextPart.style.display = "none";
+
+  // nextBtnPart2b = document.createElement("button");
+  // nextBtnPart2b.classList.add("btnPart2b");
+  // nextBtnPart2b.textContent = "לשלב הבא";
+  // document.body.appendChild(nextBtnPart2b);
+  // עכשיו העמוד נקי וניתן להוסיף תוכן חדש
+
+let pageIndex = 0;
+let pages = [
+  { subtitle: "שלב ראשון", imageSrc: "media/card1.svg" }, // <-- תמונה ריקה למלא
+  { subtitle: "שלב שני", imageSrc: "media/card2.svg" },
+  { subtitle: "שלב שלישי", imageSrc: "media/card3.svg" },
+  { subtitle: "שלב רביעי", imageSrc: "media/card4.svg" },
+  { subtitle: "שלב חמישי", imageSrc: "media/card5.svg" },
+];
+
+function renderPage() {
+  // מחיקת תוכן קודם
+  document.body.innerHTML = "";
+
+  // כותרת ראשית
+  const mainTitle = document.createElement("h2");
+  mainTitle.classList.add("main-title");
+  mainTitle.textContent = "הפעלת האמצעי";
+  document.body.appendChild(mainTitle);
+
+  // כותרת משנה
+  const subTitle = document.createElement("h3");
+  subTitle.classList.add("sub-title");
+  subTitle.textContent = pages[pageIndex].subtitle;
+  document.body.appendChild(subTitle);
+
+  // תמונה
+  const img = document.createElement("img");
+  img.classList.add("page-image");
+  img.src = pages[pageIndex].imageSrc; // <-- כאן נתיבי התמונות
+  document.body.appendChild(img);
+
+  // כפתורי ניווט
+  if (pageIndex > 0) {
+    const backBtnPart2b = document.createElement("button");
+    backBtnPart2b.classList.add("btnPart2b" , "backBtnPart2b");
+    backBtnPart2b.textContent = "לשלב הקודם";
+    document.body.appendChild(backBtnPart2b);
+
+    backBtnPart2b.onclick = () => {
+      pageIndex--;
+      renderPage();
+    };
+  }
+
+  if (pageIndex < pages.length - 1) {
+    const nextBtnPart2b = document.createElement("button");
+    nextBtnPart2b.classList.add("btnPart2b", "nextBtnPart2b");
+    nextBtnPart2b.textContent = "לשלב הבא";
+    document.body.appendChild(nextBtnPart2b);
+
+    nextBtnPart2b.onclick = () => {
+      pageIndex++;
+      renderPage();
+    };
+  }
+}
+
+// הפעלת הדף הראשון
+renderPage();
+
+
 }

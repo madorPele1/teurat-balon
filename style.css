@@ -21,11 +21,12 @@
 }
 
 body {
-  font-family: "rubik";
+  /* font-family: "rubik"; */
   background-image: url("media/startScreen.svg");
   background-size: cover;
   background-repeat: no-repeat;
   direction: rtl;
+  font-family: "Rubik", sans-serif;
 }
 
 .button-start {
@@ -154,10 +155,11 @@ body {
   text-align: center;
   color: #fdf4d4;
   position: relative;
-  top: 48vh;
-  right: ;
+  top: 45vh;
+  /* right: ; */
   font-weight: bold;
   font-size: larger;
+  z-index: 3;
 }
 
 .balon {
@@ -286,6 +288,10 @@ body {
 
 .text-prep {
   text-align: center;
+  /* font-size: larger; */
+  line-height: 1; /* מרווח בין שורות */
+  font-weight: bold;
+  font-size: 5vmin;
 }
 
 #wire {
@@ -349,4 +355,53 @@ body {
   width: 58vw;
 }
 
+.warn-image {
+  width: 80%;
+  margin-top: 20px;
+}
 
+.btnPart2b {
+  color: #7f613e;
+  border: 2px solid #7f613e;
+  font-weight: bold;
+  background-color: #fdf4d4;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: "rubik", sans-serif;
+  position: absolute;
+  bottom: 20%;
+  right: 36vw;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.nextBtnPart2b {
+  position: absolute;
+  bottom: 25vh;
+  right: 60vw;
+  left: 7vh;
+}
+
+.backBtnPart2b {
+  position: absolute;
+  bottom: 24.99vh;
+  right: 12vw;
+  left: 29vh;
+}
+
+.page-image {
+  position: absolute;
+  bottom: 50vh;
+  left: 8vw;
+}
+
+.sub-title {
+  text-align: center;
+  color: #7f613e;
+}
+
+.main-title {
+  text-align: center;
+  color: #ef6f00;
+  text-shadow: #999;
+}
