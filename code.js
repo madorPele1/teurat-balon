@@ -11,6 +11,8 @@ let arrow;
 let wire;
 let nextBtnPart2b;
 let backBtnPart2b;
+let pageIndex;
+let pages;
 
 window.addEventListener("load", () => {
   document.getElementById("startButton").addEventListener("click", function () {
@@ -29,21 +31,22 @@ window.addEventListener("load", () => {
   });
 });
 
-
 // --- פונקציה לאיפוס מאזינים ---
 function resetButtonListeners(button) {
   const newButton = button.cloneNode(true);
   button.replaceWith(newButton);
   return newButton;
-};
+}
 
 function navbar(level) {
   const bulbs = document.getElementsByClassName("bulb");
 
   wire = document.getElementById("wire");
 
+  console.log(level);
   // הצגת כל הנורות + איפוס קלאס "on"
   for (let bulb of bulbs) {
+    bulb.style.display = "block";
     bulb.style.visibility = "visible";
     bulb.classList.remove("on");
   }
@@ -53,6 +56,7 @@ function navbar(level) {
     const img = document.getElementById(`img${i}`);
     img.src = i <= level ? "media/bulbOn.svg" : "media/bulbOff.svg";
     if (i <= level) img.classList.add("on");
+  console.log(i + document.getElementById(`img${i}`))
   }
 
   // -------------------------------
@@ -75,17 +79,20 @@ function navbar(level) {
   });
 
   // -------------------------------
-  // הוספת חוט (wire) לתוך הקונטיינר
-  document.getElementById("wire").style.visibility = "visible";
+  // הצגת חוט
+  wire.style.visibility = "visible";
 
   // -------------------------------
   // מאזיני לחיצה עם סדר לפי clickStage
   const img1 = document.getElementById("img1");
   const img2 = document.getElementById("img2");
+  const img3 = document.getElementById("img3");
+  const img4 = document.getElementById("img4");
 
-  // מחיקה של מאזינים קיימים כדי למנוע כפילויות
   img1.onclick = null;
   img2.onclick = null;
+  img3.onclick = null;
+  img4.onclick = null;
 
   img1.onclick = () => {
     if (clickStage === 0) {
@@ -102,7 +109,30 @@ function navbar(level) {
     if (clickStage === 1) {
       step2();
       wire.style.visibility = "hidden";
+      document.body.style.backgroundImage =
+        "url('media/backgroundRegular.svg')";
+      container.style.display = "none";
+      hideBulbs();
+      clickStage++;
+    }
+  };
 
+  img3.onclick = () => {
+    if (clickStage === 2) {
+      step3(); // ← הפונקציה של הדגשים / שלב 3
+      wire.style.visibility = "hidden";
+      document.body.style.backgroundImage =
+        "url('media/backgroundRegular.svg')";
+      container.style.display = "none";
+      hideBulbs();
+      clickStage++;
+    }
+  };
+
+  img4.onclick = () => {
+    if (clickStage === 3) {
+      step4(); // ← הפונקציה של תרגול מסכם / שלב 4
+      wire.style.visibility = "hidden";
       document.body.style.backgroundImage =
         "url('media/backgroundRegular.svg')";
       container.style.display = "none";
@@ -134,7 +164,6 @@ function step1() {
   title1.classList.add("textTitle");
   title1.style.top = "40%";
   title1.style.right = "30%";
-
   document.body.appendChild(title1);
 
   const texts = [
@@ -152,9 +181,8 @@ function step1() {
       const cell = document.createElement("td");
       cell.style.border = "none";
       cell.style.padding = "6px";
-      cell.textContent = text; // <-- כאן מכניסים את הטקסט לכל תא
+      cell.textContent = text;
       cell.classList.add("border-style");
-
       row.appendChild(cell);
     });
 
@@ -169,14 +197,12 @@ function step1() {
   document.body.appendChild(btn);
 
   imgBalon = new Image();
-
-  imgBalon.src = "media/balon1.png"; // הנתיב לתמונה
+  imgBalon.src = "media/balon1.png";
   imgBalon.classList.add("balon");
   document.body.appendChild(imgBalon);
 
   btn.addEventListener("click", function () {
     document.body.style.backgroundImage = "url('media/backgroundRegular.svg')";
-
     this.style.visibility = "hidden";
 
     title.style.display = "none";
@@ -185,26 +211,11 @@ function step1() {
     table.style.display = "none";
     imgBalon.style.visibility = "hidden";
 
-    // document.getElementById("text-container").style.display = "block";
-    // const elements = document.getElementsByClassName("bulb");
-    // for (let el of elements) {
-    //   el.style.display = "block";
-    // }
     step1b();
-    document.body.style.backgroundImage = "url('media/backgroundRegular.svg')";
-
-    // level = level + 1;
-    // navbar(level);
   });
 }
 
-//   const title = document.createElement("h2");
-//   title.textContent = "ייעוד תאורת הבלון";
-//   title.classList.add("textTitle");
-//   document.body.appendChild(title);
-
 function step1b() {
-  // נוודא שהמשתנה מוגדר תמידelement.style
   titleParts = document.querySelector(".title-part-style");
 
   if (!titleParts) {
@@ -213,38 +224,22 @@ function step1b() {
     titleParts.classList.add("title-part-style");
     document.body.appendChild(titleParts);
   }
-  //   btnClickOnme = document.createElement("p");
-  //   btnClickOnme.textContent = "לחצו עליי";
-  //   btnClickOnme.classList.add("click-on-me");
-  //   btnClickOnme.style.right = "10vw";
-  // //   btnClickOnme.style.top = "10vh";
-
-  //   btnClickOnme.style.paddingRight = "20px";
-  //   btnClickOnme.style.paddingLeft = "20px";
-  //   document.body.appendChild(btnClickOnme);
 
   const lightBalon = document.createElement("img");
   lightBalon.src = "media/lightBalon.png";
   lightBalon.classList.add("light-Balon");
   document.body.appendChild(lightBalon);
 
-  //   imgBalon.style.cssText = `
-  //     visibility: visible;
-  //     width: 70vw;
-  //     height: 60vh;
-  //     position: absolute;
-  //     right: 12%;
-  //     bottom: 16%;
-  //   `;
-
   lightBalon.addEventListener("click", function () {
-    titleParts.textContent = "מוט ההרמה"; // עכשיו titleParts גלובלי
+    titleParts.textContent = "מוט ההרמה";
     parts();
     lightBalon.style.visibility = "hidden";
+
     motHarama = document.createElement("img");
     motHarama.src = "media/motHarama.svg";
     motHarama.classList.add("motHarama");
     document.body.appendChild(motHarama);
+
     arrow = document.createElement("img");
     arrow.src = "media/arrow.svg";
     arrow.classList.add("arrowPart1");
@@ -255,7 +250,7 @@ function step1b() {
 function parts() {
   titleParts.textContent = "מוט ההרמה";
 
-  let textPart = document.querySelector(".text-part");
+  textPart = document.querySelector(".text-part");
   if (!textPart) {
     textPart = document.createElement("p");
     textPart.textContent =
@@ -280,10 +275,7 @@ function parts() {
   btnNextPart.style.paddingLeft = "20px";
   document.body.appendChild(btnNextPart);
 
-  // הסרת מאזינים קודמים
-  btnNextPart.onclick = null;
-
-  btnNextPart.onclick = function () {
+  btnNextPart.onclick = () => {
     motHarama.style.display = "none";
 
     if (clickStage1 === 0) {
@@ -314,37 +306,26 @@ function parts() {
       btnNextPart.textContent = "בחזרה למסלול";
       btnNextPart.style.right = "27%";
 
-      // מסיר את ה-onclick הראשי כדי שלא ירוץ פעמיים
-      btnNextPart.onclick = null;
-
-      btnNextPart.addEventListener("click", function () {
+      btnNextPart.onclick = () => {
         document.body.style.backgroundImage =
           "url('media/backgroundRegular.svg')";
-
-        this.style.visibility = "hidden";
-
+        btnNextPart.style.visibility = "hidden";
         titleParts.style.display = "none";
         arrow.style.display = "none";
-        btnNextPart.style.visibility = "hidden";
         imgBalon.style.display = "none";
         textPart.style.display = "none";
 
         document.getElementById("text-container").style.display = "block";
         const elements = document.getElementsByClassName("bulb");
-        for (let el of elements) {
-          el.style.display = "block";
-        }
+        for (let el of elements) el.style.display = "block";
 
-        // document.body.style.backgroundImage =
-        //   "url('media/backgroundRegular.svg')";
-
-        level = 1;
-
+        level ++;
         navbar(level);
-      });
+      };
     }
   };
 }
+
 function step2() {
   const title = document.createElement("h2");
   title.classList.add("Title");
@@ -379,7 +360,7 @@ function step2() {
       } else {
         el = document.createElement("p");
         el.textContent = lines[clickIndex];
-        el.style.marginBottom = "10vh"; // רווח בין הפסקאות
+        el.style.marginBottom = "10vh";
       }
       textPrep.appendChild(el);
       clickIndex++;
@@ -388,86 +369,146 @@ function step2() {
     }
   };
 
-  // הוספת השורה הראשונה מיד
-  btnNextPart.onclick();
+  btnNextPart.onclick(); // מציגים את השורה הראשונה מיד
 }
 
 function step2b() {
-  // בוחרת את כל האלמנטים של הטקסט הקיים
-  const allTextElements = document.querySelectorAll(
-    "h2, p, div.text-prep, img.warn-image"
-  );
+  btnNextPart.style.visibility = "hidden";
+  let page = document.getElementById("stage2-page");
+  if (!page) {
+    page = document.createElement("div");
+    page.id = "stage2-page";
+    page.style.position = "absolute";
+    page.style.top = "0";
+    page.style.right = "0";
+    page.style.width = "100vw";
+    page.style.height = "100vh";
+    page.style.backgroundImage = "url('media/backgroundRegular.svg')";
+    page.style.backgroundSize = "cover";
+    document.body.appendChild(page);
+  }
 
-  allTextElements.forEach((el) => {
-    el.remove(); // מוחקת את האלמנט
-  });
- if (btnNextPart) btnNextPart.style.display = "none";
+  pageIndex = 0;
+  pages = [
+    { subtitle: "שלב ראשון", imageSrc: "media/card1.svg" },
+    { subtitle: "שלב שני", imageSrc: "media/card2.svg" },
+    { subtitle: "שלב שלישי", imageSrc: "media/card3.svg" },
+    { subtitle: "שלב רביעי", imageSrc: "media/card4.svg" },
+    { subtitle: "שלב חמישי", imageSrc: "media/card5.svg" },
+  ];
 
-  // nextBtnPart2b = document.createElement("button");
-  // nextBtnPart2b.classList.add("btnPart2b");
-  // nextBtnPart2b.textContent = "לשלב הבא";
-  // document.body.appendChild(nextBtnPart2b);
-  // עכשיו העמוד נקי וניתן להוסיף תוכן חדש
+  function renderPage() {
+    page.innerHTML = "";
 
-let pageIndex = 0;
-let pages = [
-  { subtitle: "שלב ראשון", imageSrc: "media/card1.svg" }, // <-- תמונה ריקה למלא
-  { subtitle: "שלב שני", imageSrc: "media/card2.svg" },
-  { subtitle: "שלב שלישי", imageSrc: "media/card3.svg" },
-  { subtitle: "שלב רביעי", imageSrc: "media/card4.svg" },
-  { subtitle: "שלב חמישי", imageSrc: "media/card5.svg" },
-];
+    const mainTitle = document.createElement("h2");
+    mainTitle.classList.add("main-title");
+    mainTitle.textContent = "הפעלת האמצעי";
+    page.appendChild(mainTitle);
 
-function renderPage() {
-  // מחיקת תוכן קודם
-  document.body.innerHTML = "";
+    const subTitle = document.createElement("h3");
+    subTitle.classList.add("sub-title");
+    subTitle.textContent = pages[pageIndex].subtitle;
+    page.appendChild(subTitle);
 
-  // כותרת ראשית
-  const mainTitle = document.createElement("h2");
-  mainTitle.classList.add("main-title");
-  mainTitle.textContent = "הפעלת האמצעי";
-  document.body.appendChild(mainTitle);
+    const img = document.createElement("img");
+    img.src = pages[pageIndex].imageSrc;
+    img.classList.add("page-image");
+    page.appendChild(img);
 
-  // כותרת משנה
-  const subTitle = document.createElement("h3");
-  subTitle.classList.add("sub-title");
-  subTitle.textContent = pages[pageIndex].subtitle;
-  document.body.appendChild(subTitle);
+    if (pageIndex > 0) {
+      const backBtnPart2b = document.createElement("button");
+      backBtnPart2b.textContent = "לשלב הקודם";
+      backBtnPart2b.classList.add("btnPart2b", "backBtnPart2b");
+      page.appendChild(backBtnPart2b);
 
-  // תמונה
-  const img = document.createElement("img");
-  img.classList.add("page-image");
-  img.src = pages[pageIndex].imageSrc; // <-- כאן נתיבי התמונות
-  document.body.appendChild(img);
+      backBtnPart2b.onclick = () => {
+        pageIndex--;
+        renderPage();
+      };
+    }
 
-  // כפתורי ניווט
-  if (pageIndex > 0) {
-    const backBtnPart2b = document.createElement("button");
-    backBtnPart2b.classList.add("btnPart2b" , "backBtnPart2b");
-    backBtnPart2b.textContent = "לשלב הקודם";
-    document.body.appendChild(backBtnPart2b);
+    if (pageIndex < pages.length - 1) {
+      const nextBtnPart2b = document.createElement("button");
+      nextBtnPart2b.textContent = "לשלב הבא";
+      nextBtnPart2b.classList.add("btnPart2b", "nextBtnPart2b");
+      page.appendChild(nextBtnPart2b);
 
-    backBtnPart2b.onclick = () => {
-      pageIndex--;
-      renderPage();
+      nextBtnPart2b.onclick = () => {
+        pageIndex++;
+        renderPage();
+      };
+    } else {
+      const foldBtn = document.createElement("button");
+      foldBtn.textContent = "?איך מקפלים";
+      foldBtn.classList.add("btnPart2b", "nextBtnPart2b");
+      page.appendChild(foldBtn);
+
+      foldBtn.onclick = () => {
+        openFoldPage();
+      };
+    }
+  }
+
+  function openFoldPage() {
+    page.innerHTML = `
+    <img id="img1" class="bulb" />
+    <img id="img2" class="bulb" />
+    <img id="img3" class="bulb" />
+    <img id="img4" class="bulb" />
+`;
+    const title = document.createElement("h2");
+    title.classList.add("main-title");
+    title.textContent = "סיום העבודה";
+    page.appendChild(title);
+
+    const finishWork = document.createElement("img");
+    finishWork.src = "media/finishWork.svg";
+    finishWork.classList.add("finishWork");
+    page.appendChild(finishWork);
+
+    const backToNavBtn = document.createElement("button");
+    backToNavBtn.classList.add("btnPart2b", "navBtnPart2b");
+    backToNavBtn.textContent = "חזרה לעמוד הניווט";
+    page.appendChild(backToNavBtn);
+
+    // btnNextPart.onclick = () => {
+    //   document.body.style.backgroundImage =
+    //     "url('media/backgroundRegular.svg')";
+    //   btnNextPart.style.visibility = "hidden";
+    //   titleParts.style.display = "none";
+    //   arrow.style.display = "none";
+    //   imgBalon.style.display = "none";
+    //   textPart.style.display = "none";
+
+    //   document.getElementById("text-container").style.display = "block";
+    //   const elements = document.getElementsByClassName("bulb");
+    //   for (let el of elements) el.style.display = "block";
+
+    //   level = 1;
+    //   navbar(level);
+    // };
+
+    backToNavBtn.onclick = () => {
+      backToNavBtn.style.display = "none";
+      title.style.display = "none";
+      finishWork.style.display = "none";
+      document.body.style.backgroundImage =
+        "url('media/backgroundRegular.svg')";
+
+      document.getElementById("text-container").style.display = "block";
+      const elements = document.getElementsByClassName("bulb");
+      for (let el of elements) el.style.display = "block";
+      for (let el of elements) el.style.Zindex = "9";
+      for (let el of elements) el.style.visibility = "visible";
+
+      level++;
+      navbar(level);
     };
   }
 
-  if (pageIndex < pages.length - 1) {
-    const nextBtnPart2b = document.createElement("button");
-    nextBtnPart2b.classList.add("btnPart2b", "nextBtnPart2b");
-    nextBtnPart2b.textContent = "לשלב הבא";
-    document.body.appendChild(nextBtnPart2b);
-
-    nextBtnPart2b.onclick = () => {
-      pageIndex++;
-      renderPage();
-    };
-  }
+  renderPage();
 }
 
-// הפעלת הדף הראשון
-renderPage();
-
-
+function step3() {
+  console.log("hi");
 }

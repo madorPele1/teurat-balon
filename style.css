@@ -405,3 +405,10 @@ body {
   color: #ef6f00;
   text-shadow: #999;
 }
+
+.finishWork{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 45vh;
+}
