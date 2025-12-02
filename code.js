@@ -56,7 +56,7 @@ function navbar(level) {
     const img = document.getElementById(`img${i}`);
     img.src = i <= level ? "media/bulbOn.svg" : "media/bulbOff.svg";
     if (i <= level) img.classList.add("on");
-  console.log(i + document.getElementById(`img${i}`))
+    console.log(i + document.getElementById(`img${i}`));
   }
 
   // -------------------------------
@@ -319,7 +319,7 @@ function parts() {
         const elements = document.getElementsByClassName("bulb");
         for (let el of elements) el.style.display = "block";
 
-        level ++;
+        level++;
         navbar(level);
       };
     }
@@ -510,5 +510,209 @@ function step2b() {
 }
 
 function step3() {
-  console.log("hi");
+  console.log("step3 start");
+
+  // --- ניקוי מסך של השלב הקודם ---
+  document.body.innerHTML = "";
+
+  const mainTitle = document.createElement("h2");
+  mainTitle.classList.add("main-title");
+  mainTitle.textContent = "דגשי עבודה חשובים";
+  document.body.appendChild(mainTitle);
+
+  const subTitle = document.createElement("h3");
+  subTitle.classList.add("sub-title");
+  subTitle.textContent = "דפדפו בין הקלפים";
+  document.body.appendChild(subTitle);
+
+  let cardImg = document.createElement("img");
+  cardImg.src = "media/cardStep3.svg";
+  cardImg.classList.add("cardStep3");
+  document.body.appendChild(cardImg);
+
+  // --- יצירת עמוד חדש לשלב 3 ---
+  const stage3 = document.createElement("div");
+  stage3.id = "stage3-page";
+  stage3.classList.add("stage-page");
+  document.body.appendChild(stage3);
+
+  // --- קונטיינר לטקסטים וכפתורים ---
+  const container = document.createElement("div");
+  container.id = "step3Container";
+  container.classList.add("step3-container");
+  stage3.appendChild(container);
+
+  // --- מערך טקסטים ---
+  const step3Texts = [
+    "יש לוודא קירור גוף התאורה לאחר שימושו, לפני החזרתו למארז.",
+    "יש לוודא שהפרפריות סגורות היטב בהרכבת הערכה.",
+    "נוודא שהמשקולת מיוצבת על רגלי החצובה כמה שיותר קרוב לקצה שרחוק מהמוט המרכזי.",
+  ];
+
+  let step3Index = 0;
+
+  // --- אלמנט טקסט ---
+  const textBox = document.createElement("p");
+  textBox.id = "step3TextBox";
+  textBox.classList.add("step3-text");
+  container.appendChild(textBox);
+
+  // --- כפתור BACK ---
+  const backBtn = document.createElement("img");
+  backBtn.id = "backBtnStep3";
+  backBtn.src = "media/nextStep3.svg";
+  backBtn.classList.add("backBtnStep3");
+  container.appendChild(backBtn);
+
+  // --- כפתור NEXT ---
+  const nextBtn = document.createElement("img");
+  nextBtn.id = "nextBtnStep3";
+  nextBtn.src = "media/backStep3.svg";
+  nextBtn.classList.add("nextBtnStep3");
+  container.appendChild(nextBtn);
+
+  // --- כפתור הבנתי (מוסתר בהתחלה) ---
+  const okBtn = document.createElement("btn");
+  okBtn.id = "okBtnStep3";
+  okBtn.textContent = "הבנתי"; // <- תשימי פה את האייקון שלך
+  okBtn.classList.add("okBtnStep3");
+  okBtn.style.display = "none";
+  container.appendChild(okBtn);
+
+  backBtn.onclick = () => {
+    if (step3Index > 0) {
+      step3Index--;
+      renderStep3Text();
+    }
+  };
+
+  nextBtn.onclick = () => {
+    if (step3Index < step3Texts.length - 1) {
+      step3Index++;
+      renderStep3Text();
+    }
+  };
+
+  // פעולה כשהמשתמש מבין
+  okBtn.onclick = () => {
+    console.log("המשתמש הבין ✔");
+    step3b();
+    // פה תקראי לפונקציה הבאה שלך...
+  };
+
+  function renderStep3Text() {
+    textBox.innerHTML = step3Texts[step3Index];
+
+    // כפתור BACK
+    backBtn.style.display = step3Index === 0 ? "none" : "block";
+
+    // כפתור NEXT
+    nextBtn.style.display =
+      step3Index === step3Texts.length - 1 ? "none" : "block";
+
+    // כפתור "הבנתי"
+    okBtn.style.display =
+      step3Index === step3Texts.length - 1 ? "block" : "none";
+  }
+
+  // התחלה
+  renderStep3Text();
+}
+
+function step3b() {
+  console.log("את בדרך הנכונה");
+  document.body.innerHTML = "";
+
+  const titlePart3c = document.createElement("h2");
+  titlePart3c.textContent = "הוראות הבטיחות הכלליות";
+  titlePart3c.classList.add("titlePart3c");
+
+  const workingMan = document.createElement("img");
+  workingMan.src = "media/workManImg.svg";
+  workingMan.classList.add("workingMan");
+  document.body.appendChild(workingMan);
+
+  const okBtn = document.createElement("btn");
+  okBtn.id = "okBtnStep3b";
+  okBtn.textContent = "הבנתי"; // <- תשימי פה את האייקון שלך
+  okBtn.classList.add("okBtnStep3");
+  document.body.appendChild(okBtn);
+
+  okBtn.onclick = () => {
+    console.log(" האם זה עובד? ✔");
+    step3c();
+  };
+
+  function step3c() {
+    console.log("זה עדיין עובד!!");
+    workingMan.style.display = "none";
+    okBtn.style.display = "none";
+
+    const container = document.createElement("div");
+    container.id = "step3ImageContainer";
+    container.classList.add("step3c-container");
+    document.body.appendChild(container);
+
+    // --- מערך תמונות ---
+    const images = [
+      "media/step3Img1.svg",
+      "media/step3Img2.svg",
+      "media/step3Img3.svg",
+      "media/step3Img4.svg",
+      "media/step3Img5.svg",
+      "media/step3Img6.svg",
+      "media/step3Img7.svg",
+    ];
+
+    let index = 0;
+
+    // --- IMG Placeholder ---
+    const imgBox = document.createElement("img");
+    imgBox.id = "step3ImageBox";
+    imgBox.src = images[index];
+    imgBox.classList.add("step3-img");
+    container.appendChild(imgBox);
+
+    // --- כפתורים ---
+    const backBtn = document.createElement("button");
+    backBtn.textContent = "הקודם";
+    backBtn.style.display = "none";
+    backBtn.classList.add("backbtnPart3c");
+    container.appendChild(backBtn);
+
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "הבא";
+    nextBtn.classList.add("nextbtnPart3c");
+    container.appendChild(nextBtn);
+
+    // --- מאזינים ---
+    backBtn.onclick = () => {
+      if (index > 0) {
+        index--;
+        imgBox.src = images[index];
+        renderButtons();
+      }
+    };
+
+    nextBtn.onclick = () => {
+      if (index < images.length - 1) {
+        index++;
+        imgBox.src = images[index];
+        renderButtons();
+      }
+    };
+
+    okBtn.onclick = () => {
+      console.log("המשתמש סיים את כל התמונות ✔");
+      // פה אפשר לקרוא לפונקציה הבאה
+    };
+
+    function renderButtons() {
+      backBtn.style.display = index === 0 ? "none" : "inline-block";
+      nextBtn.style.display =
+        index === images.length - 1 ? "none" : "inline-block";
+      okBtn.style.display =
+        index === images.length - 1 ? "inline-block" : "none";
+    }
+  }
 }
